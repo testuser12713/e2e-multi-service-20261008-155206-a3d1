@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auftragsverarbeitung — Validierung</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header" data-od-id="app-header">
+    <div class="app-header__bar">
+      <div class="brand">
+        <span class="brand__bar" aria-hidden="true"></span>
+        <h1 class="brand__name">Auftragsverarbeitung</h1>
+      </div>
+      <div class="health" title="API verbunden">
+        <span class="health__dot" aria-hidden="true"></span>
+        <span class="health__text">API verbunden</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-main" data-od-id="page-main">
+    <div class="layout">
+      <section class="form-column" data-od-id="form-column">
+        <form class="form-card" novalidate data-od-id="form-card">
+          <h2 class="form-card__title">Neuer Auftrag</h2>
+
+          <div class="form-field" data-od-id="field-text">
+            <div class="field-label-row">
+              <label class="field-label" for="job-text">Auftragstext</label>
+              <span class="char-counter">0 Zeichen</span>
+            </div>
+            <textarea id="job-text" name="text" class="textarea textarea--invalid" placeholder="Text eingeben…"></textarea>
+            <span class="field-error" id="text-error">Bitte Text eingeben.</span>
+          </div>
+
+          <div class="form-field" data-od-id="field-analysis">
+            <label class="field-label" for="analysis">Auswertungsart</label>
+            <div class="select-wrap">
+              <select id="analysis" name="analysis" class="select">
+                <option value="word_count" selected>Wörter zählen</option>
+                <option value="top_words">Häufigste Wörter</option>
+                <option value="reading_time">Lesezeit schätzen</option>
+              </select>
+              <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--block" data-od-id="submit-button">Auftrag erstellen</button>
+        </form>
+      </section>
+
+      <section class="list-column" data-od-id="list-column">
+        <div class="list-header" data-od-id="job-list-header">
+          <h2 class="list-title">Aufträge</h2>
+          <span class="live-indicator">
+            <span class="live-indicator__dot" aria-hidden="true"></span>
+            Aktualisiert alle 3 s
+          </span>
+        </div>
+
+        <div class="job-list" data-od-id="job-list">
+          <article class="job-row" data-od-id="job-row-42">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>42</span>
+              <span class="analysis-pill">Wörter zählen</span>
+              <span class="status-badge status-badge--pending"><span class="status-badge__dot" aria-hidden="true"></span>wartend</span>
+            </div>
+            <p class="job-row__text">Bitte zählt die Wörter im neuen Helpcenter-Artikel zur Einführung der Auftragsverarbeitung für kleine Teams.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:41:07 UTC · Aktualisiert 2025-03-14 09:41:07 UTC</div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-41">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>41</span>
+              <span class="analysis-pill">Häufigste Wörter</span>
+              <span class="status-badge status-badge--progress"><span class="status-badge__dot" aria-hidden="true"></span>in Arbeit</span>
+            </div>
+            <p class="job-row__text">Ein eigener Worker-Prozess holt offene Aufträge aus der SQLite-Datei, berechnet das Ergebnis und schreibt Status und Ergebnis zurück in dieselbe Datei.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:40:52 UTC · Aktualisiert 2025-03-14 09:40:55 UTC</div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <footer class="review-nav" data-od-id="review-nav">
+      <span class="review-nav__label">Screens</span>
+      <a href="index.html">Start</a>
+      <a href="empty.html">Empty state</a>
+      <a href="api-unreachable.html">API unreachable</a>
+      <a href="validation.html" aria-current="page">Validation</a>
+    </footer>
+  </main>
+</body>
+</html>

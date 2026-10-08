@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auftragsverarbeitung</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header" data-od-id="app-header">
+    <div class="app-header__bar">
+      <div class="brand">
+        <span class="brand__bar" aria-hidden="true"></span>
+        <h1 class="brand__name">Auftragsverarbeitung</h1>
+      </div>
+      <div class="health" title="API verbunden">
+        <span class="health__dot" aria-hidden="true"></span>
+        <span class="health__text">API verbunden</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-main" data-od-id="page-main">
+    <div class="layout">
+      <section class="form-column" data-od-id="form-column">
+        <div id="alert-slot"></div>
+        <form id="job-form" class="form-card" novalidate data-od-id="form-card">
+          <h2 class="form-card__title">Neuer Auftrag</h2>
+
+          <div class="form-field" data-od-id="field-text">
+            <div class="field-label-row">
+              <label class="field-label" for="job-text">Auftragstext</label>
+              <span class="char-counter" id="char-counter">0 Zeichen</span>
+            </div>
+            <textarea id="job-text" name="text" class="textarea" placeholder="Text eingeben…"></textarea>
+            <span class="field-error" id="text-error" hidden>Bitte Text eingeben.</span>
+          </div>
+
+          <div class="form-field" data-od-id="field-analysis">
+            <label class="field-label" for="analysis">Auswertungsart</label>
+            <div class="select-wrap">
+              <select id="analysis" name="analysis" class="select">
+                <option value="word_count" selected>Wörter zählen</option>
+                <option value="top_words">Häufigste Wörter</option>
+                <option value="reading_time">Lesezeit schätzen</option>
+              </select>
+              <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <button type="submit" id="submit-job" class="btn btn--block" data-od-id="submit-button">Auftrag erstellen</button>
+        </form>
+      </section>
+
+      <section class="list-column" data-od-id="list-column">
+        <div class="list-header" data-od-id="job-list-header">
+          <h2 class="list-title">Aufträge</h2>
+          <span class="live-indicator">
+            <span class="live-indicator__dot" aria-hidden="true"></span>
+            Aktualisiert alle 3 s
+          </span>
+        </div>
+
+        <div class="job-list" id="job-list" data-next-id="43" data-od-id="job-list">
+          <article class="job-row" data-od-id="job-row-42">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>42</span>
+              <span class="analysis-pill">Wörter zählen</span>
+              <span class="status-badge status-badge--pending"><span class="status-badge__dot" aria-hidden="true"></span>wartend</span>
+            </div>
+            <p class="job-row__text">Bitte zählt die Wörter im neuen Helpcenter-Artikel zur Einführung der Auftragsverarbeitung für kleine Teams.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:41:07 UTC · Aktualisiert 2025-03-14 09:41:07 UTC</div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-41">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>41</span>
+              <span class="analysis-pill">Häufigste Wörter</span>
+              <span class="status-badge status-badge--progress"><span class="status-badge__dot" aria-hidden="true"></span>in Arbeit</span>
+            </div>
+            <p class="job-row__text">Ein eigener Worker-Prozess holt offene Aufträge aus der SQLite-Datei, berechnet das Ergebnis und schreibt Status und Ergebnis zurück in dieselbe Datei.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:40:52 UTC · Aktualisiert 2025-03-14 09:40:55 UTC</div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-40">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>40</span>
+              <span class="analysis-pill">Wörter zählen</span>
+              <span class="status-badge status-badge--done"><span class="status-badge__dot" aria-hidden="true"></span>fertig</span>
+            </div>
+            <p class="job-row__text">Das folgende Handbuch beschreibt die Einrichtung, Nutzung und Wartung der Auftragsverarbeitung. Es umfasst die Abschnitte Installation, API-Referenz, Worker-Betrieb und Fehlerbehebung. Weitere Kapitel folgen in den nächsten Wochen.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:39:11 UTC · Aktualisiert 2025-03-14 09:39:18 UTC</div>
+            <div class="result" data-od-id="result-40">Wörter: 1.234</div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-39">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>39</span>
+              <span class="analysis-pill">Häufigste Wörter</span>
+              <span class="status-badge status-badge--done"><span class="status-badge__dot" aria-hidden="true"></span>fertig</span>
+            </div>
+            <p class="job-row__text">Der Worker verarbeitet jeden Auftrag genau einmal. Sobald ein Auftrag den Status in Arbeit erhält, berechnet der Worker das Ergebnis und schreibt es zusammen mit dem neuen Status zurück in die Datenbank.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:36:48 UTC · Aktualisiert 2025-03-14 09:36:52 UTC</div>
+            <div class="result" data-od-id="result-39">
+              <div class="result__words">
+                <div class="result__word"><span>1. auftrag</span><span class="count">18</span></div>
+                <div class="result__word"><span>2. worker</span><span class="count">14</span></div>
+                <div class="result__word"><span>3. der</span><span class="count">12</span></div>
+                <div class="result__word"><span>4. ergebnis</span><span class="count">9</span></div>
+                <div class="result__word"><span>5. status</span><span class="count">7</span></div>
+                <div class="result__word"><span>6. werden</span><span class="count">6</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-38">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>38</span>
+              <span class="analysis-pill">Lesezeit schätzen</span>
+              <span class="status-badge status-badge--done"><span class="status-badge__dot" aria-hidden="true"></span>fertig</span>
+            </div>
+            <p class="job-row__text">In diesem Dokument fassen wir die wichtigsten Entscheidungen zur Architektur der Auftragsverarbeitung zusammen. Es beschreibt die drei Dienste, ihre Zuständigkeiten und die gemeinsame Datenhaltung über eine SQLite-Datei.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:31:02 UTC · Aktualisiert 2025-03-14 09:31:05 UTC</div>
+            <div class="result" data-od-id="result-38">
+              <div class="result__lines">
+                <div>Lesezeit: 2,4 min</div>
+                <div>Wörter: 480</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="job-row" data-od-id="job-row-37">
+            <div class="job-row__line1">
+              <span class="job-row__id"><span class="job-row__id-prefix">#</span>37</span>
+              <span class="analysis-pill">Wörter zählen</span>
+              <span class="status-badge status-badge--failed"><span class="status-badge__dot" aria-hidden="true"></span>fehlgeschlagen</span>
+            </div>
+            <p class="job-row__text">Dieser Auftrag enthält Zeichen, die nicht als UTF-8 dekodiert werden konnten und beim Lesen des Textes zu einem Fehler führten.</p>
+            <div class="job-row__timestamps">Erstellt 2025-03-14 09:28:33 UTC · Aktualisiert 2025-03-14 09:28:35 UTC</div>
+            <div class="result result--error" data-od-id="result-37">Fehler: Der Text konnte nicht gelesen werden (Ungültige UTF-8-Kodierung).</div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <footer class="review-nav" data-od-id="review-nav">
+      <span class="review-nav__label">Screens</span>
+      <a href="index.html" aria-current="page">Start</a>
+      <a href="empty.html">Empty state</a>
+      <a href="api-unreachable.html">API unreachable</a>
+      <a href="validation.html">Validation</a>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var textarea = document.getElementById('job-text');
+      var counter = document.getElementById('char-counter');
+      var form = document.getElementById('job-form');
+      var list = document.getElementById('job-list');
+      var errorHint = document.getElementById('text-error');
+      var alertSlot = document.getElementById('alert-slot');
+      var select = document.getElementById('analysis');
+
+      function nowUtc() {
+        var d = new Date();
+        function p(n) { return (n < 10 ? '0' : '') + n; }
+        return d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate()) +
+          ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ':' + p(d.getUTCSeconds()) + ' UTC';
+      }
+
+      function updateCounter() {
+        counter.textContent = textarea.value.length + ' Zeichen';
+      }
+
+      textarea.addEventListener('input', function () {
+        updateCounter();
+        if (textarea.value.trim().length > 0) {
+          textarea.classList.remove('textarea--invalid');
+          errorHint.hidden = true;
+        }
+      });
+
+      function createJobRow(id, analysisLabel, text) {
+        var ts = nowUtc();
+
+        var row = document.createElement('article');
+        row.className = 'job-row job-row--arrived';
+
+        var line1 = document.createElement('div');
+        line1.className = 'job-row__line1';
+
+        var idEl = document.createElement('span');
+        idEl.className = 'job-row__id';
+        var prefix = document.createElement('span');
+        prefix.className = 'job-row__id-prefix';
+        prefix.textContent = '#';
+        idEl.appendChild(prefix);
+        idEl.appendChild(document.createTextNode(String(id)));
+
+        var pill = document.createElement('span');
+        pill.className = 'analysis-pill';
+        pill.textContent = analysisLabel;
+
+        var badge = document.createElement('span');
+        badge.className = 'status-badge status-badge--pending';
+        var dot = document.createElement('span');
+        dot.className = 'status-badge__dot';
+        badge.appendChild(dot);
+        badge.appendChild(document.createTextNode('wartend'));
+
+        line1.appendChild(idEl);
+        line1.appendChild(pill);
+        line1.appendChild(badge);
+
+        var textEl = document.createElement('p');
+        textEl.className = 'job-row__text';
+        textEl.textContent = text;
+
+        var tsEl = document.createElement('div');
+        tsEl.className = 'job-row__timestamps';
+        tsEl.textContent = 'Erstellt ' + ts + ' · Aktualisiert ' + ts;
+
+        row.appendChild(line1);
+        row.appendChild(textEl);
+        row.appendChild(tsEl);
+        return row;
+      }
+
+      function showSuccess(message) {
+        alertSlot.innerHTML = '';
+        var alert = document.createElement('div');
+        alert.className = 'inline-alert inline-alert--success';
+        alert.setAttribute('role', 'status');
+        alert.textContent = message;
+        alertSlot.appendChild(alert);
+        setTimeout(function () {
+          if (alert.parentNode) alert.parentNode.removeChild(alert);
+        }, 4000);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var text = textarea.value.trim();
+
+        if (!text) {
+          textarea.classList.add('textarea--invalid');
+          errorHint.hidden = false;
+          textarea.focus();
+          return;
+        }
+
+        var nextId = parseInt(list.getAttribute('data-next-id'), 10) || 43;
+        var analysisLabel = select.options[select.selectedIndex].text;
+        var newRow = createJobRow(nextId, analysisLabel, text);
+
+        list.insertBefore(newRow, list.firstChild);
+        list.setAttribute('data-next-id', String(nextId + 1));
+
+        textarea.value = '';
+        updateCounter();
+        textarea.classList.remove('textarea--invalid');
+        errorHint.hidden = true;
+
+        showSuccess('Auftrag #' + nextId + ' wurde erstellt.');
+      });
+    })();
+  </script>
+</body>
+</html>
