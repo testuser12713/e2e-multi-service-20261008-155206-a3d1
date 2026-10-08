@@ -8,6 +8,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -17,6 +18,16 @@ from app.routers import health, jobs
 logger = logging.getLogger(__name__)
 
 DEFAULT_FRONTEND_ORIGIN = "http://localhost:5173"
+
+
+def _validation_detail(exc: RequestValidationError) -> str:
+    """Flatten a validation error into a single human-readable string."""
+    parts: list[str] = []
+    for error in exc.errors():
+        location = ".".join(str(item) for item in error.get("loc", ()) if item != "body")
+        message = str(error.get("msg", "invalid value"))
+        parts.append(f"{location}: {message}" if location else message)
+    return "; ".join(parts) or "invalid request"
 
 
 @asynccontextmanager
@@ -42,6 +53,14 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(jobs.router)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    """Answer 422 with a ``{"detail": "<message>"}`` body, not FastAPI's list."""
+    return JSONResponse(status_code=422, content={"detail": _validation_detail(exc)})
 
 
 @app.exception_handler(Exception)
