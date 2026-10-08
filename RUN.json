@@ -6,14 +6,84 @@
       "dir": "backend",
       "stack": "python",
       "kind": "server",
-      "install": [["${python}", "-m", "pip", "install", "-q", "-r", "requirements.txt"]],
-      "start": ["${python}", "-m", "uvicorn", "app.main:app", "--port", "${PORT}"],
+      "install": [
+        [
+          "${python}",
+          "-m",
+          "pip",
+          "install",
+          "-q",
+          "-r",
+          "requirements.txt"
+        ]
+      ],
+      "start": [
+        "${python}",
+        "-m",
+        "uvicorn",
+        "app.main:app",
+        "--port",
+        "${PORT}"
+      ],
       "port": 8000,
       "port_env": "PORT",
-      "health": { "path": "/health", "expect_status": [200] },
+      "health": {
+        "path": "/health",
+        "expect_status": [
+          200
+        ]
+      },
       "env": {
-        "JOB_DB_PATH": { "dev": "jobs.db" },
-        "FRONTEND_ORIGIN": { "dev": "http://localhost:5173" }
+        "JOB_DB_PATH": {
+          "dev": "jobs.db"
+        },
+        "FRONTEND_ORIGIN": {
+          "dev": "http://localhost:5173"
+        }
+      }
+    },
+    {
+      "name": "web",
+      "dir": "frontend",
+      "stack": "web-vite",
+      "kind": "static",
+      "install": [
+        [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ]
+      ],
+      "build": [
+        [
+          "npm",
+          "run",
+          "build"
+        ]
+      ],
+      "test": [
+        [
+          "npm",
+          "test"
+        ]
+      ],
+      "start": [
+        "npm",
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "${PORT}",
+        "--strictPort"
+      ],
+      "port": 5173,
+      "port_env": "PORT",
+      "serve_dir": "dist",
+      "env": {
+        "VITE_API_BASE_URL": {
+          "dev": "http://localhost:8000"
+        }
       }
     }
   ]
