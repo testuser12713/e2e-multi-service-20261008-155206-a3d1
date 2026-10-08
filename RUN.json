@@ -1,0 +1,21 @@
+{
+  "runcontract": 1,
+  "services": [
+    {
+      "name": "worker",
+      "dir": "worker",
+      "stack": "python",
+      "kind": "worker",
+      "install": [
+        ["${python}", "-m", "pip", "install", "-q", "-r", "requirements.txt"]
+      ],
+      "start": ["${python}", "-m", "worker.main"],
+      "test": [["${python}", "-m", "pytest", "tests"]],
+      "env": {
+        "PYTHONPATH": { "dev": ".." },
+        "JOB_DB_PATH": { "dev": "jobs.db" },
+        "POLL_INTERVAL_SECONDS": { "dev": "2" }
+      }
+    }
+  ]
+}
